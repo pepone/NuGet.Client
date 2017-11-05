@@ -641,7 +641,7 @@ namespace NuGet.Protocol.Tests
 
                 dependencyInfoResource.Setup(x => x.ResolvePackages(
                         It.Is<string>(id => id == packageIdentity.Id),
-                        NullSourceCacheContext.Instance,
+                        It.IsAny<SourceCacheContext>(),
                         It.IsNotNull<ILogger>(),
                         It.IsAny<CancellationToken>()))
                     .ReturnsAsync(new[] { remoteSourceDependencyInfo });

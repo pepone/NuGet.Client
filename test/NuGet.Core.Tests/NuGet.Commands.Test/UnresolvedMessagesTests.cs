@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
@@ -208,7 +208,7 @@ namespace NuGet.Commands.Test
             var source = new PackageSource("http://nuget.org/a/");
             var context = new Mock<SourceCacheContext>();
             var provider = new Mock<IRemoteDependencyProvider>();
-            provider.Setup(e => e.GetAllVersionsAsync(It.IsAny<string>(), NullSourceCacheContext.Instance, It.IsAny<ILogger>(), It.IsAny<CancellationToken>()))
+            provider.Setup(e => e.GetAllVersionsAsync(It.IsAny<string>(), It.IsAny<SourceCacheContext>(), It.IsAny<ILogger>(), It.IsAny<CancellationToken>()))
                     .ReturnsAsync(() => versions);
             provider.SetupGet(e => e.Source).Returns(source);
 
@@ -224,7 +224,7 @@ namespace NuGet.Commands.Test
             var source = new PackageSource("http://nuget.org/a/");
             var context = new Mock<SourceCacheContext>();
             var provider = new Mock<IRemoteDependencyProvider>();
-            provider.Setup(e => e.GetAllVersionsAsync(It.IsAny<string>(), NullSourceCacheContext.Instance, It.IsAny<ILogger>(), It.IsAny<CancellationToken>()))
+            provider.Setup(e => e.GetAllVersionsAsync(It.IsAny<string>(), It.IsAny<SourceCacheContext>(), It.IsAny<ILogger>(), It.IsAny<CancellationToken>()))
                     .ReturnsAsync(() => Enumerable.Empty<NuGetVersion>());
             provider.SetupGet(e => e.Source).Returns(source);
 
@@ -403,7 +403,7 @@ namespace NuGet.Commands.Test
         private static Mock<IRemoteDependencyProvider> GetProvider(string source, IEnumerable<NuGetVersion> versions)
         {
             var provider = new Mock<IRemoteDependencyProvider>();
-            provider.Setup(e => e.GetAllVersionsAsync(It.IsAny<string>(), NullSourceCacheContext.Instance, It.IsAny<ILogger>(), It.IsAny<CancellationToken>()))
+            provider.Setup(e => e.GetAllVersionsAsync(It.IsAny<string>(), It.IsAny<SourceCacheContext>(), It.IsAny<ILogger>(), It.IsAny<CancellationToken>()))
                     .ReturnsAsync(() => versions);
             provider.SetupGet(e => e.Source).Returns(new PackageSource(source));
 
