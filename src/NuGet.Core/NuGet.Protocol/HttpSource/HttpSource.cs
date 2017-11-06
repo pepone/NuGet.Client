@@ -145,16 +145,6 @@ namespace NuGet.Protocol
                             return await processAsync(httpSourceResult);
                         }
 
-                        if (throttledResponse.Response.StatusCode != HttpStatusCode.OK)
-                        {
-                            throw new FatalProtocolException(string.Format(
-                            CultureInfo.CurrentCulture,
-                            Strings.Log_FailedToFetchV2Feed,
-                            request.Uri,
-                            (int)throttledResponse.Response.StatusCode,
-                            throttledResponse.Response.ReasonPhrase));
-                        }
-
                         throttledResponse.Response.EnsureSuccessStatusCode();
 
                         if (!request.CacheContext.DirectDownload)

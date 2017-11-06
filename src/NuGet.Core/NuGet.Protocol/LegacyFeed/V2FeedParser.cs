@@ -512,40 +512,53 @@ namespace NuGet.Protocol
             {
                 var httpSourceCacheContext = HttpSourceCacheContext.Create(sourceCacheContext, 0);
 
-                return await _httpSource.GetAsync(
-                    new HttpSourceCachedRequest(
-                        uri,
-                        cacheKey,
-                        httpSourceCacheContext)
-                    {
-                        AcceptHeaderValues =
+                try
+                {
+                    return await _httpSource.GetAsync(
+                        new HttpSourceCachedRequest(
+                            uri,
+                            cacheKey,
+                            httpSourceCacheContext)
                         {
+                            AcceptHeaderValues =
+                            {
                             new MediaTypeWithQualityHeaderValue("application/atom+xml"),
                             new MediaTypeWithQualityHeaderValue("application/xml")
+                            },
+                            EnsureValidContents = stream => HttpStreamValidation.ValidateXml(uri, stream),
+                            MaxTries = 1,
+                            IgnoreNotFounds = ignoreNotFounds
                         },
-                        EnsureValidContents = stream => HttpStreamValidation.ValidateXml(uri, stream),
-                        MaxTries = 1,
-                        IgnoreNotFounds = ignoreNotFounds
-                    },
-                    async response =>
-                    {
-                        if (ignoreNotFounds && response.Status == HttpSourceResultStatus.NotFound)
+                        async response =>
                         {
+                            if (ignoreNotFounds && response.Status == HttpSourceResultStatus.NotFound)
+                            {
                             // Treat "404 Not Found" as an empty response.
                             return null;
-                        }
-                        else if (response.Status == HttpSourceResultStatus.NoContent)
-                        {
+                            }
+                            else if (response.Status == HttpSourceResultStatus.NoContent)
+                            {
                             // Always treat "204 No Content" as exactly that.
                             return null;
-                        }
-                        else
-                        {
-                            return await LoadXmlAsync(response.Stream);
-                        }
-                    },
-                    log,
-                    token);
+                            }
+                            else
+                            {
+                                return await LoadXmlAsync(response.Stream);
+                            }
+                        },
+                        log,
+                        token);
+                }
+                catch (Exception ex)
+                {
+                    var message = string.Format(
+                        CultureInfo.CurrentCulture,
+                        Strings.Log_FailedToFetchV2FeedHttp,
+                        uri,
+                        ex.Message);
+
+                    throw new FatalProtocolException(message, ex);
+                }
             }
             else
             {

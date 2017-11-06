@@ -356,9 +356,9 @@ namespace NuGet.Protocol.Tests
                 CancellationToken.None));
 
             Assert.Equal(
-                "The V2 feed at '" + serviceAddress + "Search()?$filter=IsLatestVersion&searchTerm='azure'" +
+                "Failed to fetch results from V2 feed at '" + serviceAddress + "Search()?$filter=IsLatestVersion&searchTerm='azure'" +
                 "&targetFramework='net40-client'&includePrerelease=false&$skip=0&$top=1&semVerLevel=2.0.0' " +
-                "returned an unexpected status code '404 Not Found'.",
+                "with following message: " + exception.InnerException?.Message,
                 exception.Message);
         }
 
@@ -393,9 +393,9 @@ namespace NuGet.Protocol.Tests
                 CancellationToken.None));
 
             Assert.Equal(
-                "The V2 feed at '" + serviceAddress + "Search()?$filter=IsLatestVersion&searchTerm='azure'" +
+                "Failed to fetch results from V2 feed at '" + serviceAddress + "Search()?$filter=IsLatestVersion&searchTerm='azure'" +
                 "&targetFramework='net40-client'&includePrerelease=false&$skip=0&$top=1&semVerLevel=2.0.0' " +
-                "returned an unexpected status code '500 Internal Server Error'.",
+                "with following message : " + exception.InnerException?.Message,
                 exception.Message);
         }
 
@@ -535,8 +535,8 @@ namespace NuGet.Protocol.Tests
                 CancellationToken.None));
 
             Assert.Equal(
-                "The V2 feed at '" + serviceAddress + "FindPackagesById()?id='xunit'&semVerLevel=2.0.0' " +
-                "returned an unexpected status code '404 Not Found'.",
+                "Failed to fetch results from V2 feed at '" + serviceAddress + "FindPackagesById()?id='xunit'&semVerLevel=2.0.0' " +
+                "with following message : " + exception.InnerException?.Message,
                 exception.Message);
         }
 
@@ -563,8 +563,8 @@ namespace NuGet.Protocol.Tests
                 NullLogger.Instance,
                 CancellationToken.None));
             Assert.Equal(
-                "The V2 feed at '" + serviceAddress + "Packages(Id='xunit',Version='1.0.0-InternalServerError')' " +
-                "returned an unexpected status code '500 Internal Server Error'.",
+                "Failed to fetch results from V2 feed at '" + serviceAddress + "Packages(Id='xunit',Version='1.0.0-InternalServerError')' " +
+                "with following message : " + exception.InnerException?.Message,
                 exception.Message);
         }
 
@@ -591,8 +591,8 @@ namespace NuGet.Protocol.Tests
                 CancellationToken.None));
 
             Assert.Equal(
-                "The V2 feed at '" + serviceAddress + "FindPackagesById()?id='xunit'&semVerLevel=2.0.0' " +
-                "returned an unexpected status code '404 Not Found'.",
+                "Failed to fetch results from V2 feed at '" + serviceAddress + "FindPackagesById()?id='xunit'&semVerLevel=2.0.0' " +
+                "with following message : " + exception.InnerException?.Message,
                 exception.Message);
         }
 
@@ -619,8 +619,8 @@ namespace NuGet.Protocol.Tests
                 CancellationToken.None));
 
             Assert.Equal(
-                "The V2 feed at '" + serviceAddress + "FindPackagesById()?id='xunit'&semVerLevel=2.0.0' " +
-                "returned an unexpected status code '500 Internal Server Error'.",
+                "Failed to fetch results from V2 feed at '" + serviceAddress + "FindPackagesById()?id='xunit'&semVerLevel=2.0.0' " +
+                "with following message : " + exception.InnerException?.Message ,
                 exception.Message);
         }
 
