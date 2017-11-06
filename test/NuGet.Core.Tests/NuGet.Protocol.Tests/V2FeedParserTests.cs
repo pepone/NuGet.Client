@@ -356,9 +356,9 @@ namespace NuGet.Protocol.Tests
                 CancellationToken.None));
 
             Assert.Equal(
-                "Failed to fetch results from V2 feed at '" + serviceAddress + "Search()?$filter=IsLatestVersion&searchTerm='azure'" +
-                "&targetFramework='net40-client'&includePrerelease=false&$skip=0&$top=1&semVerLevel=2.0.0' " +
-                "with following message: " + exception.InnerException?.Message,
+                "The V2 feed at '" + serviceAddress + "Search()?$filter=IsLatestVersion&searchTerm='azure'" +
+                 "&targetFramework='net40-client'&includePrerelease=false&$skip=0&$top=1&semVerLevel=2.0.0' " +
+                 "returned an unexpected status code '500 Internal Server Error'.",
                 exception.Message);
         }
 
@@ -393,9 +393,9 @@ namespace NuGet.Protocol.Tests
                 CancellationToken.None));
 
             Assert.Equal(
-                "Failed to fetch results from V2 feed at '" + serviceAddress + "Search()?$filter=IsLatestVersion&searchTerm='azure'" +
-                "&targetFramework='net40-client'&includePrerelease=false&$skip=0&$top=1&semVerLevel=2.0.0' " +
-                "with following message : " + exception.InnerException?.Message,
+                "The V2 feed at '" + serviceAddress + "Search()?$filter=IsLatestVersion&searchTerm='azure'" +
+                 "&targetFramework='net40-client'&includePrerelease=false&$skip=0&$top=1&semVerLevel=2.0.0' " +
+                "returned an unexpected status code '404 Not Found'.",
                 exception.Message);
         }
 

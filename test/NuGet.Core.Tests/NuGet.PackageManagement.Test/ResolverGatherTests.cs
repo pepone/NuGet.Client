@@ -403,6 +403,8 @@ namespace NuGet.Test
 
             };
 
+            var resolutionContext = new ResolutionContext();
+
             var context = new GatherContext();
             context.PrimaryTargets = targets.ToList();
             context.InstalledPackages = installedPackages;
@@ -410,6 +412,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = resolutionContext;
 
             var contextAOnly = new GatherContext();
             contextAOnly.PrimaryTargets = targets.ToList();
@@ -418,6 +421,7 @@ namespace NuGet.Test
             contextAOnly.PrimarySources = primaryRepo;
             contextAOnly.AllSources = reposAOnly;
             contextAOnly.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            contextAOnly.ResolutionContext = resolutionContext;
 
             // Run the first time
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -473,6 +477,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -587,6 +592,7 @@ namespace NuGet.Test
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
             context.AllowDowngrades = true;
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -644,6 +650,7 @@ namespace NuGet.Test
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
             context.AllowDowngrades = false;
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -695,6 +702,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = new ResolutionContext();
 
             // Act and Assert
             await Assert.ThrowsAsync(typeof(InvalidOperationException), async () =>
@@ -746,6 +754,7 @@ namespace NuGet.Test
             context.AllSources = repos;
             context.IsUpdateAll = true;
             context.PackagesFolderSource = CreateRepo("installed", new List<SourcePackageDependencyInfo>());
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -797,6 +806,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -855,6 +865,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -916,6 +927,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -974,6 +986,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -1033,6 +1046,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -1120,6 +1134,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -1197,6 +1212,7 @@ namespace NuGet.Test
             context.PrimarySources = repos;
             context.AllSources = repos;
             context.PackagesFolderSource = repos[2];
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -1261,6 +1277,7 @@ namespace NuGet.Test
             context.PrimarySources = repos;
             context.AllSources = repos;
             context.PackagesFolderSource = repos[2];
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -1324,6 +1341,7 @@ namespace NuGet.Test
             context.PrimarySources = repos;
             context.AllSources = repos;
             context.PackagesFolderSource = repos[2];
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
@@ -1389,6 +1407,7 @@ namespace NuGet.Test
             context.PrimarySources = repos;
             context.AllSources = repos;
             context.PackagesFolderSource = repos[2];
+            context.ResolutionContext = new ResolutionContext();
 
             // Act
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);
