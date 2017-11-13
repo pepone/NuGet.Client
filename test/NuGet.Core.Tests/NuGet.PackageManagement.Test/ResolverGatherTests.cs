@@ -403,8 +403,6 @@ namespace NuGet.Test
 
             };
 
-            var resolutionContext = new ResolutionContext();
-
             var context = new GatherContext();
             context.PrimaryTargets = targets.ToList();
             context.InstalledPackages = installedPackages;
@@ -412,7 +410,7 @@ namespace NuGet.Test
             context.PrimarySources = primaryRepo;
             context.AllSources = repos;
             context.PackagesFolderSource = CreateRepo("installed", repoInstalled);
-            context.ResolutionContext = resolutionContext;
+            context.ResolutionContext = new ResolutionContext();
 
             var contextAOnly = new GatherContext();
             contextAOnly.PrimaryTargets = targets.ToList();
@@ -421,7 +419,7 @@ namespace NuGet.Test
             contextAOnly.PrimarySources = primaryRepo;
             contextAOnly.AllSources = reposAOnly;
             contextAOnly.PackagesFolderSource = CreateRepo("installed", repoInstalled);
-            contextAOnly.ResolutionContext = resolutionContext;
+            contextAOnly.ResolutionContext = new ResolutionContext();
 
             // Run the first time
             var results = await ResolverGather.GatherAsync(context, CancellationToken.None);

@@ -15,6 +15,7 @@ namespace NuGet.Protocol.Core.Types
                 if (_instance == null)
                 {
                     _instance = new NullSourceCacheContext();
+                    _instance.DirectDownload = true;
                 }
 
                 return _instance;
